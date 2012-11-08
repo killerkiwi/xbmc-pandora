@@ -16,6 +16,7 @@ dlg.create( "PANDORA", "Loading Script..." )
 dlg.update( 0 )
 
 from pandora.pandora import Pandora, PandoraError
+from pandora.data import *
 
 from pandagui import PandaGUI
 from pandaplayer import PandaPlayer
@@ -61,7 +62,7 @@ class Panda:
 		fmt = ( "lowQuality", "mediumQuality", "highQuality" )[fmt]
 		try:
 			self.pandora = Pandora()
-			self.pandora.set_audio_format(fmt)
+			self.pandora.set_audio_quality(fmt)
 		except PandoraError, e:
 			xbmcgui.Dialog().ok( "Pandora", "Error: %s" %e )
 			self.die = True
@@ -109,7 +110,7 @@ class Panda:
 		dlg.create( "PANDORA", "Logging In..." )
 		dlg.update( 0 )
 		try:
-			self.pandora.connect(user, pwd)
+			self.pandora.connect(client_keys[default_client_id], user, pwd)
 		except PandoraError, e:
 			return 0;
 		dlg.close()
